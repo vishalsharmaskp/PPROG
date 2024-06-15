@@ -3,9 +3,9 @@
 #include <time.h>
 
 #define MAX_Depth 14
-#define arraySize 2048
+#define arraySize 2024
 
-// static int depth = 0;
+static int depth;
 
 static int num_operation[MAX_Depth] = {0};
 
@@ -49,12 +49,14 @@ void merge(int arr[], int l, int m , int r, int depth){
     }
 
     while (i < n1){
+        num_operation[depth] = num_operation[depth] + 1;
         arr[k] = L[i]; 
         i++;
         k++;
 
     }
     while (j < n2){
+        num_operation[depth] = num_operation[depth] + 1;    
         arr[k] = R[j];
         j++;
         k++;
@@ -80,7 +82,7 @@ void mergeSort(int arr[], int l, int r, int depth){
 
 int main(){
     // strad(time(0));
-    int depth = 0;
+    int depth ;
     int arr[arraySize];
     for (int i = 0; i < arraySize; i++){
         arr[i] = rand() % 10 +1;
@@ -88,15 +90,17 @@ int main(){
     printf("Unsorted array: \n");
     // printArray(arr, arraySize);
     
-    mergeSort(arr, 0, arraySize - 1,   depth);   
+    mergeSort(arr, 0, arraySize - 1, depth = 0);   
     printf("Sorted array: \n");
     // printArray(arr, arraySize);
   
 
     printf("Number of operations: \n");
-    for (int i = 0; i < MAX_Depth; i++){
+    for (int i = 1; i < MAX_Depth; i++){
         printf("Depth %d: %d\n", i, num_operation[i]);
     }
+
+    // printf("Depth: %d\n", depth);
 
     return 0;
 }
